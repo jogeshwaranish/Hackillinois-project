@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Route = () => {
+const SuggestedRoute = () => {
   return (
     <div>
       
@@ -8,4 +8,5 @@ const Route = () => {
   )
 }
 
-export default Route
+export default SuggestedRoute
+
