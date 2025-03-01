@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from flask import request
 
 # Create a Blueprint
 main_bp = Blueprint("main", __name__)
@@ -9,7 +10,10 @@ def hello():
 
 @main_bp.route("/location", methods=["POST"])
 def location():
-    pass
+    data = request.get_json()  # Get JSON data from request
+    print(data)  # Print to console
+    return {"message": "Data received", "data": data}, 200
+
 
 # Function to register the Blueprint with the main app
 def register_routes(app):
