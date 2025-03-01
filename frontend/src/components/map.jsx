@@ -45,7 +45,7 @@ export default function Map() {
               { propertyValue: 30, value: 0 },
             ],
             radius: [
-              { propertyValue: 1, value: 120 },
+              { propertyValue: 1, value: 100 },
               { propertyValue: 30, value: 0 },
             ]
           });

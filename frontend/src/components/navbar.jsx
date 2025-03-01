@@ -10,7 +10,7 @@ const Navbar = () => {
       </Link>
       <nav className="header-nav">
         <Link to="/" className="header-link">Dashboard</Link>
-        <Link to="/heatmap" className="header-link">Heatmap</Link>
+        <Link to="/map" className="header-link">Heatmap</Link>
         <Link to="/suggested-route" className="header-link">SuggestedRoute</Link>
       </nav>
     </div>

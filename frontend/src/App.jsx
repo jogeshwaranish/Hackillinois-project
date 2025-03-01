@@ -20,7 +20,7 @@ function App() {
       <Map />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/heatmap" element={<Heatmap />} />
+        <Route path="/map" element={<Map />} />
         <Route path="/suggested-route" element={<SuggestedRoute />} />
       </Routes>
       <Geolocator></Geolocator>
