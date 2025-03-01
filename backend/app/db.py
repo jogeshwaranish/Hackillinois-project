@@ -6,7 +6,7 @@ import pymongo.collation
 import pymongo.collection
 load_dotenv()
 
-CONNECTION_STRING = "mongodb+srv://jb79:FrA4yX!Pc.jr.GN@datatruck.kn66o.mongodb.net/?retryWrites=true&w=majority&appName=datatruck"
+CONNECTION_STRING = os.getenv("mongodb_uri")
 client = pymongo.MongoClient(CONNECTION_STRING)
 db = client.get_database('flask_mongodb_atlas')
 user_collection = pymongo.collection.Collection(db, 'user_collection')
