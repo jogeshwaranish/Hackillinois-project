@@ -9,3 +9,4 @@ backend/app/__pycache__/__init__.cpython-312.pyc
 
 .env
 backend/app/__pycache__/routes.cpython-312.pyc
+backend/app/db.py
