@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 from flask import request
 from . import db
 from flask import g
+from app.script import updateTransactions
 
 # Create a Blueprint
 main_bp = Blueprint("main", __name__)
@@ -24,7 +25,8 @@ def location():
     lat = data["coords"]["latitude"]
     lon = data["coords"]["longitude"]
     existing_location = db.db.user_collection.find_one({"lat": lat, "lon": lon})
-    g.latest_loc = {"lat": lat, "lon": lon}
+    latest_loc = {"lat": lat, "lon": lon}
+    updateTransactions(latest_loc)
 
     if existing_location:
         return jsonify({"message": "Location already exists, no changes made"}), 200
@@ -33,6 +35,7 @@ def location():
     db.db.user_collection.insert_one({"lat": lat, "lon": lon})
     return jsonify({"message": "Location added successfully"}), 201
 
+@main_bp.route("/geojson", methods = ["GET"])
 
 # Function to register the Blueprint with the main app
 def register_routes(app):
