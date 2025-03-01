@@ -1,0 +1,50 @@
+body, #root {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between; /* Logo on the left, links on the right */
+    align-items: center;
+    width: 100%;
+    height: 70px; /* Fixed height */
+    background-color: #333; /* Dark background */
+    padding: 0 20px; /* Padding on both sides */
+    position: fixed; /* Keeps it at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it's above everything */
+  }
+  
+  /* Logo Styles */
+  .logo-title img {
+    height: 50px; /* Adjust as needed */
+    width: auto;
+  }
+  
+  /* Navigation Styles */
+  .header-nav {
+    display: flex;
+    gap: 20px; /* Spacing between buttons */
+  }
+  
+  /* Navigation Links */
+  .header-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .header-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Push content down to prevent it from hiding under the fixed header */
+  main, .content {
+    padding-top: 70px; /* Match navbar height */
+  }
