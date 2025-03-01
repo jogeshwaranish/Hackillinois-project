@@ -15,6 +15,14 @@ def location():
     data = request.get_json()  # Get JSON data from request
     lat = data.get("lat")
     lon = data.get("lon")
+    existing_location = db.db.user_collection.find_one({"lat": lat, "lon": lon})
+
+    if existing_location:
+        return jsonify({"message": "Location already exists, no changes made"}), 200
+
+    # Insert the new location
+    db.db.user_collection.insert_one({"lat": lat, "lon": lon})
+    return jsonify({"message": "Location added successfully"}), 201
 
 
 # Function to register the Blueprint with the main app
