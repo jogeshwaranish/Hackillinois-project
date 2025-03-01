@@ -17,7 +17,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <button>adghjkjhghjkhghjkldsfgfdfghgfdfghgfdfghjhgfdfghjhgfdfghjhgfdsdfghjjhvbjk</button>
       <Map />
       <Routes>
         <Route path="/" element={<Dashboard />} />
