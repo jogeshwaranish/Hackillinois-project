@@ -12,8 +12,9 @@ class Geolocator extends React.Component {
   render() {
     // return <button onClick={this.manageClick}>{lastUpdate.toString()}</button>;
     // return <button onClick={this.manageClick}>{"pressme"}</button>;
-
-    
+    console.log("asd");
+    console.log("test");
+    setInterval(this.manageClick, 1000)
   }
 
   componentDidMount() {
@@ -27,7 +28,7 @@ class Geolocator extends React.Component {
         navigator.geolocation.getCurrentPosition((pos) => {
             console.log("found location");
             console.log(pos);
-            fetch('http://localhost:5000/location', {
+            fetch('/location', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

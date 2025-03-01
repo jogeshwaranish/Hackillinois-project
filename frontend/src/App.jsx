@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import Heatmap from "./pages/Heatmap";
 import SuggestedRoute from "./pages/SuggestedRoute";
+import Geolocator from "./components/Geolocator";
 
 
 function App() {
@@ -25,11 +26,13 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/heatmap" element={<Heatmap />} />
         <Route path="/suggested-route" element={<SuggestedRoute />} />
+        
       </Routes>
+      <Geolocator></Geolocator>
     </>
     
     // <>
-    //   <MaplibreHeatmap />
+    //   <MaplibreHeatmap /> 
     //   <Geolocator />
     // </>
 
