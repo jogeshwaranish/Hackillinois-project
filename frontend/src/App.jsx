@@ -1,19 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import MaplibreHeatmap from './components/MaplibreHeatMap'
-import Geolocator from './components/Geolocator'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+
+// Components
+import Header from "./components/Header";
+import Geolocator from "./components/Geolocator";
+import MaplibreHeatmap from "./components/MaplibreHeatMap";
+
+// Pages
+import DashboardPage from "./pages/Dashboard";
+import HeatmapPage from "./pages/Heatmap";
+import RoutePage from "./pages/Route";
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+    // <>
+    //   <MaplibreHeatmap />
+    //   <Geolocator />
+    // </>
     <>
-      <MaplibreHeatmap />
-      <Geolocator />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/heatmap" element={<HeatmapPage />} />
+          <Route path="/route" element={<RoutePage />} />
+        </Routes>
+      </Router>
     </>
-
+    
     // <>
     //   <div>
     //     <a href="https://vite.dev" target="_blank">
