@@ -11,8 +11,9 @@ class Geolocator extends React.Component {
 
   render() {
     // return <button onClick={this.manageClick}>{lastUpdate.toString()}</button>;
-    return <button onClick={this.manageClick}>{"pressme"}</button>;
+    // return <button onClick={this.manageClick}>{"pressme"}</button>;
 
+    
   }
 
   componentDidMount() {
