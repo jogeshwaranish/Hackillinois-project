@@ -12,15 +12,8 @@ class Geolocator extends React.Component {
   render() {
     // return <button onClick={this.manageClick}>{lastUpdate.toString()}</button>;
     // return <button onClick={this.manageClick}>{"pressme"}</button>;
-    console.log("asd");
-    console.log("test");
     setInterval(this.manageClick, 1000)
   }
-
-  componentDidMount() {
-
-  }
-
   manageClick() {
     console.log("button pressed")
     if (navigator.geolocation) {
