@@ -3,23 +3,23 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Components
-import Navbar from "./components/navbar.jsx";
-import Map from './components/map.jsx';
+import Navbar from "./components/Navbar.jsx";
+import Heatmap from './components/Heatmap.jsx';
 import Geolocator from "./components/Geolocator";
 
 // Pages
-import Dashboard from "./pages/Dashboard";
-import SuggestedRoute from "./pages/SuggestedRoute";
+import Dashboard from "./components/Dashboard.jsx";
+import SuggestedRoute from "./components/SuggestedRoute.jsx";
 
 
 function App() {
   return (
     <>
       <Navbar />
-      <Map />
+      <Heatmap />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/map" element={<Map />} />
+        <Route path="/Heatmap" element={<Heatmap />} />
         <Route path="/suggested-route" element={<SuggestedRoute />} />
       </Routes>
       <Geolocator></Geolocator>

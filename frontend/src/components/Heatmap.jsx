@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import configData from "../config";
-import './map.css';
+import './Heatmap.css';
 
 export default function Map() {
     const mapContainer = useRef(null);
@@ -22,19 +22,6 @@ export default function Map() {
           zoom: zoom,
           hash: true,
         });
-
-        // map.current.on("load", () => {
-        //     maptilersdk.helpers.addPoint(map.current, {
-        //     data: geodata,
-        //     pointColor: maptilersdk.ColorRampCollection.COOL.scale(0, 30),
-        //     property: "minimum_nights",
-        //     pointOpacity: 0.5,
-        //     showLabel: true,
-        //     labelColor: "black",
-        //     // pointRadius: 10,
-        //     // cluster: true,
-        //     });
-        // });
 
         map.current.on("load", () => {
           maptilersdk.helpers.addHeatmap(map.current, {
