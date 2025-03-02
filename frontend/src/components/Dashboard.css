@@ -1,0 +1,57 @@
+/* Dashboard Container */
+.dashboard-container {
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Dashboard Title */
+  .dashboard-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Loading State Container */
+  .loading-container {
+    margin: 20px 0;
+    color: #666;
+  }
+  
+  /* Error Container */
+  .error-container {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #ffeeee;
+    border: 1px solid #ffaaaa;
+    border-radius: 5px;
+    color: #cc0000;
+  }
+  
+  .error-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  /* Summary Container */
+  .summary-container {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .summary-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 15px;
+    }
+    
+    .summary-container, 
+    .error-container {
+      padding: 12px;
+    }
+  }

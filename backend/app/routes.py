@@ -10,6 +10,7 @@ import pandas as pd
 load_dotenv()
 import json
 
+
 # Create a Blueprint
 main_bp = Blueprint("main", __name__)
 
@@ -103,34 +104,45 @@ def optimal_route():
     }), 200
     
 
+def initialize_openai() -> OpenAI:
+    """Initialize the OpenAI client."""
+    openai_api_key=os.getenv("openai-key")
+    return OpenAI(api_key=openai_api_key)
+
+client = initialize_openai()
+
 @main_bp.route("/gpt4", methods=["GET"])
-def get_foodtruck_summary():
-    transactions = list(db.purchases.purchases_collection.find({}, {"_id": 0}))  # Get transactions (exclude MongoDB _id)
-    
-    client = OpenAI(api_key=os.getenv("openai-key"))
-    
-    try:
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You summarize food truck transaction data"
-                },
-                {
-                    "role": "user",
-                    "content": f"Summarize this food truck transaction data in a human-friendly way:\n{json.dumps(transactions)}"
-                }
-            ]
-        )
+def gpt4_summary():
+    try:        
+        transactions = list(db.purchases.purchases_collection.find({}, {"_id": 0}))
+
+        # Convert transactions into a summarized text format (limit size if necessary)
+        transactions_text = "\n".join([str(txn) for txn in transactions[:50]])  # Limit to 50 to avoid token overload
         
-        # Access the response content correctly
-        summary = completion.choices[0].message.content
-        return jsonify({"summary": summary})
+        # Prepare GPT-4 request
+        response = client.chat.completions.create(
+            model= "gpt-4o",
+            messages= [
+                {"role": "system", "content": "You are a data analyst summarizing food truck trends in a concise and engaging way."},
+                {"role": "user", "content": f"""Hey! ✋ Here's your latest food truck trend breakdown:
+
+                - **Top Sellers**: What items are consistently leading sales? Any new trends emerging? 🍽️
+                - **Peak Hours**: When is the highest demand, and are there shifts in customer behavior? ⏰
+                - **Notable Trends**: Any surprising patterns in pricing, location preference, or seasonal shifts? 📊
+
+                Keep it professional yet engaging, and make sure it's under 100 words. Here’s the transaction data:
+
+                {transactions_text}"""}
+            ]
+        
+        )
+        summary = response.choices[0].message.content.strip()
+        print (summary);
+
+        return jsonify({"summary": summary}), 200
 
     except Exception as e:
-        print(f"OpenAI API error: {str(e)}")  # Log the error for debugging
-        return jsonify({"error": "Failed to fetch summary.", "details": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 # Function to register the Blueprint with the main app
 def register_routes(app):

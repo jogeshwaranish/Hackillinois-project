@@ -14,6 +14,8 @@ export default function Heatmap() {
   // Updated center to Illinois coordinates based on your GeoJSON data
   const center = { lng: -88.23524427791183, lat: 40.10230588782403 };
   const zoom = 14;
+
+  // let biggestAmm = 0;
  
   // Set API key
   useEffect(() => {
@@ -56,6 +58,7 @@ export default function Heatmap() {
       })
       .then(data => {
         console.log("GeoJSON data received:", data);
+        let geodata = data.features;
         
         if (!data || !data.features || data.features.length === 0) {
           setError("Received empty or invalid GeoJSON data");
@@ -100,14 +103,27 @@ export default function Heatmap() {
                 ['linear'],
                 ['get', 'cash_amount'], // Now using transformed property
                 0, 0,
-                30, 1 // Adjusted max value to match your data range
+                900, 1 // Adjusted max value to match your data range
               ],
+              // Increased radius values for a larger outer radius effect
               'heatmap-radius': [
                 'case',
-                ['<', ['get', 'hour'], 12], 30,
-                ['<', ['get', 'hour'], 18], 40,
-                40
+                ['<', ['get', 'hour'], 12], 60,  // Increased from 30
+                ['<', ['get', 'hour'], 18], 80,  // Increased from 40
+                80  // Increased from 40 (default case)
               ],
+              // You can also make the radius dependent on zoom level for better scaling
+              // Uncomment this alternative if you prefer a zoom-based approach
+              /*
+              'heatmap-radius': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                10, 20,  // At zoom level 10, radius is 20px
+                14, 60,  // At zoom level 14, radius is 60px
+                16, 100  // At zoom level 16, radius is 100px
+              ],
+              */
               'heatmap-color': [
                 'interpolate',
                 ['linear'],
@@ -131,31 +147,32 @@ export default function Heatmap() {
             }
           });
           
+          // console.log(biggestAmm);
           // Add a circle layer to make individual points visible
-          // map.current.addLayer({
-          //   id: 'cash-points',
-          //   type: 'circle',
-          //   source: 'transactions',
-          //   minzoom: 14,
-          //   paint: {
-          //     'circle-radius': [
-          //       'interpolate',
-          //       ['linear'],
-          //       ['get', 'cash_amount'],
-          //       0, 3,
-          //       30, 15
-          //     ],
-          //     'circle-color': [
-          //       'interpolate',
-          //       ['linear'],
-          //       ['get', 'cash_amount'],
-          //       0, 'rgb(0, 128, 0)',       // Green for low values
-          //       15, 'rgb(255, 255, 0)',    // Yellow for medium values
-          //       30, 'rgb(255, 0, 0)'    
-          //     ],
-          //     'circle-opacity': 0.6
-          //   }
-          // });
+          map.current.addLayer({
+            id: 'cash-points',
+            type: 'circle',
+            source: 'transactions',
+            minzoom: 14,
+            paint: {
+              'circle-radius': [
+                'interpolate',
+                ['linear'],
+                ['get', 'cash_amount'],
+                0, 3,
+                30, 15
+              ],
+              'circle-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'cash_amount'],
+                0, 'rgb(0, 128, 0)',       // Green for low values
+                15, 'rgb(255, 255, 0)',    // Yellow for medium values
+                30, 'rgb(255, 0, 0)'    
+              ],
+              'circle-opacity': 0.6
+            }
+          });
         }
       })
       .catch(error => {
