@@ -7,7 +7,7 @@ from . import db
 from flask import jsonify
 import time
 import asyncio
-
+import math
 
 def get_merchants_purchases():
     url = "http://api.nessieisreal.com/merchants/67c282359683f20dd518c00b/purchases?key=6ec27d1e026837afbeec1914d11ceb58"
@@ -129,3 +129,50 @@ def convert_to_geojson(transactions):
     
     return geojson
 
+
+def unique_path():
+    # Get all purchases
+    unique_path = set()
+    all_purchases = list(db.purchases.purchases_collection.find())
+    all_purchases[0]['lat'] = float(all_purchases[0]['lat'])
+    all_purchases[0]['lon'] = float(all_purchases[0]['lon'])
+    unique_path.add((all_purchases[0]['lon'], all_purchases[0]['lat']))
+    for i in range(len(all_purchases)):
+        all_purchases[i]['lat'] = float(all_purchases[i]['lat'])
+        all_purchases[i]['lon'] = float(all_purchases[i]['lon'])
+        for j in range(i+1, len(all_purchases)):
+            all_purchases[j]['lat'] = float(all_purchases[j]['lat'])
+            all_purchases[j]['lon'] = float(all_purchases[j]['lon'])
+            if not is_within_range(
+                [all_purchases[i]['lat'], all_purchases[i]['lon']],
+                [all_purchases[j]['lat'], all_purchases[j]['lon']],
+                0.1
+            ):
+                unique_path.add((all_purchases[j]['lon'], all_purchases[j]['lat']))
+    return unique_path
+
+    
+def haversine(coord1, coord2):
+    """
+    Calculate the distance in kilometers between two coordinates using the Haversine formula.
+    """
+    R = 6371  # Radius of the Earth in kilometers
+
+    lat1, lon1 = math.radians(coord1[0]), math.radians(coord1[1])
+    lat2, lon2 = math.radians(coord2[0]), math.radians(coord2[1])
+
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+
+    a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    distance = R * c
+    return distance
+
+def is_within_range(coord1, coord2, max_distance_km):
+  """
+  Check if coord2 is within max_distance_km of coord1.
+  """
+  distance = haversine(coord1, coord2)
+  return distance <= max_distance_km

@@ -15,12 +15,12 @@ class Geolocator extends React.Component {
     setInterval(this.manageClick, 1000)
   }
   manageClick() {
-    console.log("button pressed")
+    // console.log("button pressed")
     if (navigator.geolocation) {
-        console.log("has geolocator enabled")
+        // console.log("has geolocator enabled")
         navigator.geolocation.getCurrentPosition((pos) => {
-            console.log("found location");
-            console.log(pos);
+            // console.log("found location");
+            // console.log(pos);
             fetch('/location', {
                 method: 'POST',
                 headers: {

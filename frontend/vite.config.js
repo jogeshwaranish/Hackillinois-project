@@ -11,6 +11,21 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/geojson": {
+        target: "http://127.0.0.1:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/unique_path": {
+        target: "http://127.0.0.1:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/optimal": {
+        target: "http://127.0.0.1:5000",
+        changeOrigin: true,
+        secure: false,
+      }
     },
   },
 })
