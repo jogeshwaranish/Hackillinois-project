@@ -9,7 +9,6 @@ import Geolocator from "./components/Geolocator";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
-import Heatmap from "./pages/Heatmap";
 import SuggestedRoute from "./pages/SuggestedRoute";
 
 
