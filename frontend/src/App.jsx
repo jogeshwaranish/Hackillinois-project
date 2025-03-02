@@ -4,27 +4,27 @@ import "./App.css";
 
 // Components
 import Navbar from "./components/Navbar.jsx";
-import Heatmap from './components/Heatmap.jsx';
 import Geolocator from "./components/Geolocator";
 
 // Pages
 import Dashboard from "./components/Dashboard.jsx";
+import Heatmap from "./components/Heatmap.jsx";
 import SuggestedRoute from "./components/SuggestedRoute.jsx";
-
 
 function App() {
   return (
-    <>
+    <div className="app-container">
       <Navbar />
-      <Heatmap />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/Heatmap" element={<Heatmap />} />
-        <Route path="/suggested-route" element={<SuggestedRoute />} />
-      </Routes>
-      <Geolocator></Geolocator>
-    </>  
+      <main>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/map" element={<Heatmap />} />
+          <Route path="/route" element={<SuggestedRoute />} />
+        </Routes>
+        <Geolocator />
+      </main>
+    </div>  
   )
 }
 
-export default App
+export default App;

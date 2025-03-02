@@ -13,6 +13,10 @@
   box-sizing: border-box;
 }
 
+.logo-title {
+  display: block;
+}
+
 .logo-title img {
   height: 50px;
   width: auto;

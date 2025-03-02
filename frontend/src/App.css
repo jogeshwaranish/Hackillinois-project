@@ -11,6 +11,6 @@ body, #root {
 }
 
 main {
-  flex: 1;
-  margin-top: 70px; /* Match header height */
+  margin-top: 70px;
+  height: calc(100vh - 70px);
 }
