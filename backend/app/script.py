@@ -28,7 +28,7 @@ def change_merchant_location(lat, lng):
     return data
 
 def get_latest_location():
-    existing_location = db.db.user_collection.find_one(sort=[("_id", -1)])
+    existing_location = db.user_collection.find_one(sort=[("_id", -1)])
     if existing_location:
         return existing_location
     return jsonify({"message": "no transactions"}), 200

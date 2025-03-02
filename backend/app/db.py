@@ -8,8 +8,8 @@ load_dotenv()
 
 CONNECTION_STRING = os.getenv("mongodb_uri")
 client = pymongo.MongoClient(CONNECTION_STRING)
-db = client.get_database('flask_mongodb_atlas')
-user_collection = pymongo.collection.Collection(db, 'user_collection')
+db = client.get_database("Data")
+user_collection = pymongo.collection.Collection(db, "coords")
 
-purchases = client.get_database("purchases")
-purchases_collection = pymongo.collection.Collection(purchases, "purchases_collection")
+purchases = client.get_database("Truck")
+purchases_collection = pymongo.collection.Collection(purchases, "transactions")
